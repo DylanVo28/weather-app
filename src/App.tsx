@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {ThemeProvider} from "styled-components";
+import { Routes, Route } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import LocationHeader from "./components/LocationHeader";
+import SearchHistory from "./pages/SearchHistory";
+import Home from "./pages/Home";
+const theme = {
+  colors: {
+    primary: '#3498db',
+    background: '#f5f6fa',
+    card: '#ffffff',
+    text: '#2d3436',
+  }
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ThemeProvider theme={theme}>
+          <BrowserRouter>
+              <LocationHeader/>
+
+          <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/search" element={<SearchHistory/>}/>
+          </Routes>
+          </BrowserRouter>
+      </ThemeProvider>
   );
 }
 
