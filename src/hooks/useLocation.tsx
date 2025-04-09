@@ -7,13 +7,14 @@ interface LocationState {
     setLocation: (location: string) => void;
     setHistory: (history: string[]) => void;
 }
+
 const useLocationStore = create<LocationState>()(
     persist(
         (set, get) => ({
             location: 'Singapore, SG',
             history: [],
-            setLocation: (location:string) => set({ location }),
-            setHistory: (history: string[]) => set({ history }),
+            setLocation: (location: string) => set({location}),
+            setHistory: (history: string[]) => set({history}),
         }),
         {
             name: 'location-storage', // name of the item in the storage (must be unique)
@@ -23,14 +24,14 @@ const useLocationStore = create<LocationState>()(
 )
 
 export const useLocation = () => {
-    const {location, setLocation, history,setHistory}=useLocationStore()
-    const updateLocation = (location:string) => {
+    const {location, setLocation, history, setHistory} = useLocationStore()
+    const updateLocation = (location: string) => {
         setLocation(location);
     }
 
-    const addHistory= (location:string) => {
-        const foundedLocation=history.find(h=>h===location)
-        if(foundedLocation){
+    const addHistory = (location: string) => {
+        const foundedLocation = history.find(h => h === location)
+        if (foundedLocation) {
             return
         }
         const newHistory = [...history];
@@ -38,13 +39,13 @@ export const useLocation = () => {
         setHistory(newHistory);
     }
 
-    const deleteHistory= (location:string) => {
-        const foundedLocation=history.find(h=>h===location)
-        if(!foundedLocation){
+    const deleteHistory = (location: string) => {
+        const foundedLocation = history.find(h => h === location)
+        if (!foundedLocation) {
             return
         }
         let newHistory = [...history];
-        newHistory=newHistory.filter(h=>h!==location);
+        newHistory = newHistory.filter(h => h !== location);
         setHistory(newHistory);
     }
     return {
